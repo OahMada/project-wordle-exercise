@@ -7,13 +7,21 @@ import UserGuesses from '../UserGuesses';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { checkGuess } from '../../game-helpers';
 import { GameLosingBanner, GameWinningBanner } from '../GameEndingBanner';
+import Keyboard from '../Keyboard';
 
 // Pick a random word on every pageload.
-const answer = sample(WORDS);
+// const answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
+// console.info({ answer });
+
+function selectAnswer() {
+	let answer = sample(WORDS);
+	console.log(answer);
+	return answer;
+}
 
 function Game() {
+	let [answer, setAnswer] = React.useState(selectAnswer);
 	let [userGuesses, setUserGuesses] = React.useState([]);
 	let [gameWinning, setGameWinning] = React.useState(null);
 
@@ -30,12 +38,19 @@ function Game() {
 		}
 	};
 
+	let restartGame = () => {
+		setAnswer(selectAnswer);
+		setUserGuesses([]);
+		setGameWinning(null);
+	};
+
 	return (
 		<>
-			{gameWinning && <GameWinningBanner guessCount={userGuesses.length} />}
-			{!gameWinning && gameWinning !== null && <GameLosingBanner answer={answer} />}
+			{gameWinning && <GameWinningBanner guessCount={userGuesses.length} restartGame={restartGame} />}
+			{!gameWinning && gameWinning !== null && <GameLosingBanner answer={answer} restartGame={restartGame} />}
 			<UserGuesses userGuesses={userGuesses} />
 			<GuessInput updateUserGuesses={updateUserGuesses} gameWinning={gameWinning} />
+			<Keyboard userGuesses={userGuesses} />
 		</>
 	);
 }
