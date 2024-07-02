@@ -17,7 +17,16 @@ function UserGuess({ updateUserGuesses, gameWinning }) {
 	return (
 		<form className='guess-input-wrapper' onSubmit={handleSubmit}>
 			<label htmlFor='guess-input'>Enter guess:</label>
-			<input id='guess-input' type='text' value={guess} onChange={handleOnChange} pattern='[A-Z]{5}' disabled={gameWinning !== null} />
+			<input
+				id='guess-input'
+				type='text'
+				value={guess}
+				onChange={handleOnChange}
+				pattern='[A-Z]{5}'
+				disabled={gameWinning !== null}
+				title='5 letter word'
+				required
+			/>
 		</form>
 	);
 }
