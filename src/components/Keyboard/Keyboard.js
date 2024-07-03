@@ -2,7 +2,8 @@ import React from 'react';
 import { ALPHABET_SEQUENCES, AVAILABLE_COLOR_SCHEMES } from '../../constants';
 
 function Keyboard({ userGuesses }) {
-	let allUserGuesses = userGuesses.flat().reduce((acc, cur) => {
+	let userGuessesCopy = [...userGuesses];
+	let allUserGuesses = userGuessesCopy.flat().reduce((acc, cur) => {
 		let index = acc.findIndex((item) => item.letter === cur.letter);
 		if (index === -1) {
 			acc.push(cur);

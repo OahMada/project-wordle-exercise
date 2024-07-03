@@ -33,7 +33,7 @@ function Game() {
 
 		if (newGuess === answer) {
 			setGameWinning(true);
-		} else if (userGuesses.length + 1 >= NUM_OF_GUESSES_ALLOWED) {
+		} else if (newGuesses.length >= NUM_OF_GUESSES_ALLOWED) {
 			setGameWinning(false);
 		}
 	};
