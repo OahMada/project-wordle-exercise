@@ -2,11 +2,11 @@ import React from 'react';
 import { ALPHABET_SEQUENCES, AVAILABLE_COLOR_SCHEMES } from '../../constants';
 
 function Keyboard({ userGuesses }) {
-	let userGuessesCopy = [...userGuesses];
-	let allUserGuesses = userGuessesCopy.flat().reduce((acc, cur) => {
+	let allUserGuesses = userGuesses.flat().reduce((acc, cur) => {
 		let index = acc.findIndex((item) => item.letter === cur.letter);
 		if (index === -1) {
-			acc.push(cur);
+			acc.push({ ...cur });
+			// use spread to avoid altering the original value
 		} else if (AVAILABLE_COLOR_SCHEMES.indexOf(cur.status) > AVAILABLE_COLOR_SCHEMES.indexOf(acc[index].status)) {
 			acc[index].status = cur.status;
 		}
